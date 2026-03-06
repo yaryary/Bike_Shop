@@ -18,8 +18,10 @@ PRIMARY KEY (user_ID)
 -- Sample Data
 INSERT INTO User (
 	first_name, last_name, email_address, password_hash, birth_date, phone_number, user_role, is_active)
-Values(
-	'Leia', 'Organa', 'downwiththeorder@gmail.com', 'Resistance123', '1950-01-01', '305-555-5555', 'staff', true);
+Values
+('Leia', 'Organa', 'downwiththeorder@gmail.com', 'Resistance123', '1950-01-01', '305-555-5555', 'staff', true),
+('Luke', 'Skywalker', 'milleniumfalcon@gmail.com', 'C3poR2d2', '1950-01-01', '305-777-7777', 'staff', true),
+('Ben', 'Solo', 'ihatemydad@gmail.com', 'Sith4lyfe', '1990-01-01', '305-999-999', 'customer', true);
 
 -- Test Data    
 SELECT * FROM User;
