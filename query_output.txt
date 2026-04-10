@@ -1,0 +1,15 @@
+Query Output from Queries.sql
+
+1. Query 1 - checks what bikes cost more than 450
+
+bike_id | bike_model      | bike_brand   | bike_price
+------------------------------------------------------
+1       | Escape 3        | Giant        | 550.00
+2       | Allez           | Specialized  | 1200.00
+
+2. Query 2 - shows the bikes by their status (In Stock or Out of Stock)
+
+bike_status     | total_bikes
+-----------------------------
+In Stock        | 2
+Out of Stock    | 1
