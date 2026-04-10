@@ -1,0 +1,88 @@
+import sys
+import os
+
+# Setup path to backend
+current_dir = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(os.path.join(current_dir, "..", "backend"))
+
+import app
+
+def main():
+    conn = app.connect_db()
+
+    while True:
+        print("\n--- Bike Shop CLI ---")
+        print("1. View all repairs")
+        print("2. View repairs per bike")
+        print("3. View ongoing repairs")
+        print("4. View completed repairs (view)")
+        print("5. View completed repairs after a date")
+        print("6. Add a repair")
+        print("7. mark a repair as complete")
+        print("8. Delete a repair")
+        print("9. Exit")
+
+        choice = input("Enter choice: ")
+
+        if choice == "1":
+            rows = app.view_all_repairs(conn)
+            for row in rows:
+                print(row)
+
+        elif choice == "2":
+            rows = app.repairs_per_bike(conn)
+            for row in rows:
+                print(row)
+
+        elif choice == "3":
+            rows = app.ongoing_repairs(conn)
+            for row in rows:
+                print(row)
+
+        elif choice == "4":
+            rows = app.view_completed_repairs(conn)
+            for row in rows:
+                print(row)
+
+        elif choice == "5":
+            date = input("Enter date (YYYY-MM-DD): ")
+            rows = app.completed_after_date(conn, date)
+            for row in rows:
+                print(row)
+
+        #this is for adding a repair
+        elif choice == "6":
+            bike_ID = int(input("bike ID"))
+            description = input("repair description:")
+            parts_cost = float(input("parts cost:"))
+            labor_cost = float(input("Labor cost:"))
+            notes = input("Notes:")
+            app.add_repair(conn, bike_ID, description, parts_cost, labor_cost, notes)
+            print("Repair added")
+
+        #this is for updating a repair ID to mark it as completed
+        elif choice == "7":
+            repair_ID = int(input("Enter repair ID to make as completed: "))
+            app.mark_repair_completed(conn, repair_ID)
+            print("Repair completed")
+
+        elif choice == "8":
+            repair_ID = int(input("enter repir ID to delete:"))
+            confirm = input("Are you sure (yes/no): ")
+            
+            if confirm.lower() == "yes":
+                app.delete_repair(conn,repair_ID)
+                print("repair deleted")
+            else: 
+                print("Cancelled")
+
+        elif choice == "9":
+            print("Exiting...")
+            conn.close()
+            break
+
+        else:
+            print("Invalid choice. Please enter 1 - 9.")
+
+if __name__ == "__main__":
+    main()

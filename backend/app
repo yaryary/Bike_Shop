@@ -1,0 +1,87 @@
+import mysql.connector
+
+def connect_db():
+    return mysql.connector.connect(
+        database ="bikeshop",
+        user="root",
+        password="password",
+        host="localhost"
+)
+
+def view_all_repairs(conn):
+    curs = conn.cursor(dictionary=True)
+    curs.execute( """
+    SELECT bike_repair_ID, bike_ID, repair_status, repair_description,
+           ticket_creation, ticket_completed, parts_cost, labor_cost, notes
+    FROM bikerepairs
+    """
+    )
+    return curs.fetchall()
+
+def repairs_per_bike(conn):
+    curs = conn.cursor(dictionary=True)
+    curs.execute( """
+    SELECT bike_ID, COUNT(bike_repair_ID) AS total_repairs
+    FROM bikerepairs
+    GROUP BY bike_ID
+    """
+    )
+    return curs.fetchall()
+
+#repairs that are pending or in progress    
+def ongoing_repairs(conn):
+    curs = conn.cursor(dictionary=True)
+    curs.execute( """
+    SELECT bike_repair_ID, bike_ID, repair_status, repair_description
+    FROM bikerepairs
+    WHERE repair_status IN ('Pending', 'In Progress')
+    """
+    )
+    return curs.fetchall()
+
+#looks at all completed repairs
+def view_completed_repairs(conn):
+    curs = conn.cursor(dictionary=True)
+    curs.execute("SELECT * FROM CompletedRepairs")
+    return curs.fetchall()
+
+#finds the repair based on the date it was completed
+def completed_after_date(conn, date):
+    curs = conn.cursor(dictionary=True)
+    curs.execute( """
+    SELECT *
+    FROM bikerepairs
+    WHERE repair_status = 'Completed'
+      AND ticket_completed >= %s
+    """, (date,))
+    return curs.fetchall()
+
+#for adding repairs into the system
+def add_repair(conn, bike_ID, description, parts_cost, labor_cost, notes):
+    curs = conn.cursor()
+    query = """
+    INSERT into bikerepairs
+    (bike_ID, repair_status, repair_description, ticket_creation, parts_cost, labor_cost, notes)
+    values(%s, 'Pending', %s, curdate(), %s, %s, %s)
+    """
+    curs.execute(query,(bike_ID, description, parts_cost, labor_cost, notes))
+    conn.commit()
+
+#it marks repairs as complete
+def mark_repair_completed(conn, repair_id):
+    curs = conn.cursor()
+    query = """
+    UPDATE bikerepairs
+    SET repair_status = 'Completed',
+        ticket_completed = CURDATE()
+    WHERE bike_repair_ID = %s
+    """
+    curs.execute(query, (repair_id,))
+    conn.commit()
+
+#deletes repairs using their id
+def delete_repair(conn, repair_id):
+    curs = conn.cursor()
+    query = "DELETE FROM bikerepairs WHERE bike_repair_ID = %s"
+    curs.execute(query, (repair_id,))
+    conn.commit()
