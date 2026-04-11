@@ -19,7 +19,10 @@ def main():
         print("5. Add a repair")
         print("6. mark a repair as complete")
         print("7. Delete a repair")
-        print("8. Exit")
+        print("8. View bikes over $450")
+        print("9. View bikes by status")
+        print("10. View bikes by lowest price")
+        print("11. Exit")
 
         choice = input("Enter choice: ")
 
