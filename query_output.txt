@@ -7,9 +7,9 @@ bike_id | bike_model      | bike_brand   | bike_price
 1       | Escape 3        | Giant        | 550.00
 2       | Allez           | Specialized  | 1200.00
 
-2. Query 2 - shows the bikes by their status (In Stock or Out of Stock)
+2. Query 2 - shows the bikes by their status (in_shop or out_of_stock)
 
 bike_status     | total_bikes
 -----------------------------
-In Stock        | 2
-Out of Stock    | 1
+in_shop         | 2
+out_of_stock    | 1
