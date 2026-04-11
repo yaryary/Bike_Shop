@@ -54,4 +54,37 @@ UPDATE BikeRepairs
 SET ticket_completed = CURDATE()
 WHERE bike_repair_ID = --Ex: 3;
 
+-- Query 11: Find users with active accounts
+
+SELECT
+    u.user_ID,
+    u.first_name,
+    u.last_name,
+    u.email_address,
+    u.user_role,
+    u.is_active,
+    COUNT(s.sale_ID) AS total_orders,
+    SUM(s.sale_amount) AS total_spent
+FROM User u
+LEFT JOIN Sales s
+    ON s.costumer_ID = u.user_ID
+GROUP BY
+    u.user_ID, u.first_name, u.last_name,
+    u.email_address, u.user_role, u.is_active
+ORDER BY total_spent DESC;
+
+-- Query 12: Trigger that prevents negative sale_amount if user bypasses CHECK
+DELIMITER //
+CREATE TRIGGER trg_sales_no_negative_amount
+BEFORE INSERT ON Sales
+FOR EACH ROW
+BEGIN
+    IF NEW.sale_amount < 0 THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'sale_amount cannot be negative';
+    END IF;
+END//
+DELIMITER ;
+
+
 
