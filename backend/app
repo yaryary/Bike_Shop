@@ -62,3 +62,34 @@ def delete_repair(conn, repair_id):
     query = "DELETE FROM bikerepairs WHERE bike_repair_ID = %s"
     curs.execute(query, (repair_id,))
     conn.commit()
+
+#checks for bikes with prices higher than 450
+def bikes_over_450(conn):
+    curs = conn.cursor(dictionary=True)
+    curs.execute("""
+    SELECT bike_id, bike_model, bike_brand, bike_price
+    FROM Bike
+    WHERE bike_price > 450
+    """)
+    return curs.fetchall()
+
+
+#shows bikes by their current status
+def bikes_by_status(conn):
+    curs = conn.cursor(dictionary=True)
+    curs.execute("""
+    SELECT bike_status, COUNT(*) AS total_bikes
+    FROM Bike
+    GROUP BY bike_status
+    """)
+    return curs.fetchall()
+
+#sorts bikes by type and stock status
+def bikes_by_price_desc(conn):
+    curs = conn.cursor(dictionary=True)
+    curs.execute("""
+    SELECT bike_id, bike_type, bike_model, bike_price
+    FROM Bike
+    ORDER BY bike_price DESC
+    """)
+    return curs.fetchall()
