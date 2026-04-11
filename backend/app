@@ -47,14 +47,14 @@ def add_repair(conn, bike_ID, description, parts_cost, labor_cost, notes):
 
 #looks for repairs that are ongoing
 def ongoing_repairs(conn):
-    cursor = conn.cursor(dictionary=True)
+    curs = conn.cursor(dictionary=True)
     query = """
     SELECT bike_repair_ID, bike_ID, repair_description
     FROM BikeRepairs
     WHERE ticket_completed IS NULL
     """
-    cursor.execute(query)
-    return cursor.fetchall()
+    curs.execute(query)
+    return curs.fetchall()
 
 #it marks repairs as complete
 def mark_repair_completed(conn, repair_id):
