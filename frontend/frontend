@@ -15,14 +15,6 @@ def main():
         print("1. View all repairs")
         print("2. View repairs per bike")
         print("3. View ongoing repairs")
-        print("4. View completed repairs (view)")
-        print("5. View completed repairs after a date")
-        print("6. Add a repair")
-        print("7. mark a repair as complete")
-        print("8. Delete a repair")
-        print("9. View user order and spending summary")
-        print("10. Create sales trigger (no negative sale_amount)")
-        print("11. Exit")
         print("4. View completed repairs")  
         print("5. Add a repair")
         print("6. mark a repair as complete")
@@ -30,7 +22,9 @@ def main():
         print("8. View bikes over $450")
         print("9. View bikes by status")
         print("10. View bikes by lowest price")
-        print("11. Exit")
+        print("11. View user order and spending summary")
+        print("12. Create sales trigger (no negative sale_amount)")
+        print("13. Exit")
 
         choice = input("Enter choice: ")
 
@@ -82,21 +76,40 @@ def main():
                 print("Cancelled")
 
         elif choice == "8":
-            rows = app.get_user_order_spending_summary(conn)
+            rows = app.bikes_over_450(conn)
+            for row in rows:
+                print(row)
+
+        elif choice ==  "9":
+            rows = app.bikes_by_status(conn)
             for row in rows:
                 print(row)
 
         elif choice == "10":
+           rows = app.bikes_by_price_desc(conn)
+            for row in rows:
+                print(row)
+
+        elif choice == "11":
+            rows = app.get_user_order_spending_summary(conn)
+            for row in rows:
+                print(row)
+
+        elif choice == "12":
+            rows = app.bikes_by_price_desc(conn)
+            for row in rows:
+                print(row)
             app.create_sales_no_negative_amount_trigger(conn)
             print("Trigger created: trg_sales_no_negative_amount")
 
-        elif choice == "11":
+        elif choice == "13":
             print("Exiting...")
             conn.close()
             break
 
         else:
-            print("Invalid choice. Please enter 1 - 11.")
+            print("Invalid choice. Please enter 1 - 13.")
+
 
 if __name__ == "__main__":
     main()
