@@ -36,8 +36,7 @@ WHERE bike_repair_ID = --EX: 6;
 
 --Query 9: updating a repair
 UPDATE BikeRepairs
-SET repair_status = --EX: 'Completed',
-    ticket_completed = CURDATE()
+SET ticket_completed = CURDATE()
 WHERE bike_repair_ID = --Ex: 3;
 
 
