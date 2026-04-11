@@ -15,7 +15,7 @@ def main():
         print("1. View all repairs")
         print("2. View repairs per bike")
         print("3. View ongoing repairs")
-        print("4. View completed repairs (view)")  
+        print("4. View completed repairs")  
         print("5. Add a repair")
         print("6. mark a repair as complete")
         print("7. Delete a repair")
@@ -46,10 +46,10 @@ def main():
 
         #this is for adding a repair
         elif choice == "5":
-            bike_ID = int(input("bike ID"))
-            description = input("repair description:")
-            parts_cost = float(input("parts cost:"))
-            labor_cost = float(input("Labor cost:"))
+            bike_ID = int(input("bike ID: "))
+            description = input("repair description: ")
+            parts_cost = float(input("parts cost: "))
+            labor_cost = float(input("Labor cost: "))
             notes = input("Notes:")
             app.add_repair(conn, bike_ID, description, parts_cost, labor_cost, notes)
             print("Repair added")
@@ -61,7 +61,7 @@ def main():
             print("Repair completed")
 
         elif choice == "7":
-            repair_ID = int(input("enter repir ID to delete:"))
+            repair_ID = int(input("enter repair ID to delete:"))
             confirm = input("Are you sure (yes/no): ")
             
             if confirm.lower() == "yes":
@@ -76,7 +76,7 @@ def main():
             break
 
         else:
-            print("Invalid choice. Please enter 1 - 9.")
+            print("Invalid choice. Please enter 1 - 8.")
 
 if __name__ == "__main__":
     main()
