@@ -30,6 +30,10 @@ FROM BikeRepairs
 GROUP BY bike_ID;
 
 --Query 6: complete repairs
+CREATE VIEW CompletedRepairs AS
+SELECT *
+FROM BikeRepairs
+WHERE ticket_completed IS NOT NULL;
 SELECT * FROM CompletedRepairs;
 
 --Query7: insert repair, put values such as the Bike_ID and the number assigned to it
