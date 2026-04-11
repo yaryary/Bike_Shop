@@ -3,10 +3,10 @@ SELECT bike_id, bike_model, bike_brand, bike_price
 FROM Bike
 WHERE bike_price > 450;
 
---Query 2 - will count bikes by status (in stock or out of stock)
+--Query 2 - will count bikes by status (in_shop or out_of_stock)
 SELECT bike_status, COUNT(*) AS total_bikes
 FROM Bike
-GROUP BY bike_status;\
+GROUP BY bike_status;
 
 --Query 3: View all repairs
 SELECT bike_repair_ID, bike_ID, repair_description,
