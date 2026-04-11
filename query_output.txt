@@ -13,3 +13,15 @@ bike_status     | total_bikes
 -----------------------------
 in_shop         | 2
 out_of_stock    | 1
+
+3. Query 3 - filters the bikes based on the availability and bike type
+
+bike_type    | bike_status   | total_bikes | average_price | highest_price
+---------------------------------------------------------------------------
+Electric     | ready         | 1           | 2899.00       | 2899.00
+Road         | in_shop       | 2           | 1549.50       | 1799.00
+Road         | out_of_stock  | 1           | 1200.00       | 1200.00
+Mountain     | picked_up     | 1           | 999.00        | 999.00
+Mountain     | ready         | 1           | 899.00        | 899.00
+Hybrid       | in_shop       | 3           | 592.83        | 679.50
+BMX          | picked_up     | 1           | 389.99        | 389.99
