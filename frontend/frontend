@@ -74,12 +74,27 @@ def main():
                 print("Cancelled")
 
         elif choice == "8":
+            rows = app.bikes_over_450(conn)
+            for row in rows:
+                print(row)
+
+        elif choice ==  "9":
+            rows = app.bikes_by_status(conn)
+            for row in rows:
+                print(row)
+
+        elif choice == "10":
+           rows = app.bikes_by_price_desc(conn)
+            for row in rows:
+                print(row)
+
+        elif choice == "11":
             print("Exiting...")
             conn.close()
             break
 
         else:
-            print("Invalid choice. Please enter 1 - 8.")
+            print("Invalid choice. Please enter 1 - 11.")
 
 if __name__ == "__main__":
     main()
