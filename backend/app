@@ -104,3 +104,46 @@ def bikes_by_price_desc(conn):
     ORDER BY bike_price DESC
     """)
     return curs.fetchall()
+
+
+#Find users with active accounts
+def get_user_order_spending_summary(conn):
+    curs = conn.cursor(dictionary=True)
+    curs.execute("""
+    SELECT
+        u.user_ID,
+        u.first_name,
+        u.last_name,
+        u.email_address,
+        u.user_role,
+        u.is_active,
+        COUNT(s.sale_ID) AS total_orders,
+        SUM(s.sale_amount) AS total_spent
+    FROM User u
+    LEFT JOIN Sales s
+        ON s.costumer_ID = u.user_ID
+    GROUP BY
+        u.user_ID, u.first_name, u.last_name,
+        u.email_address, u.user_role, u.is_active
+    ORDER BY total_spent DESC
+    """)
+    return curs.fetchall()
+
+
+def create_sales_no_negative_amount_trigger(conn):
+    curs = conn.cursor()
+    curs.execute("DROP TRIGGER IF EXISTS trg_sales_no_negative_amount")
+    curs.execute("""
+    CREATE TRIGGER trg_sales_no_negative_amount
+    BEFORE INSERT ON Sales
+    FOR EACH ROW
+    BEGIN
+        IF NEW.sale_amount < 0 THEN
+            SIGNAL SQLSTATE '45000'
+                SET MESSAGE_TEXT = 'sale_amount cannot be negative';
+        END IF;
+    END
+    """)
+    conn.commit()
+
+
