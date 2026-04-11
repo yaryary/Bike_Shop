@@ -17,14 +17,16 @@ INSERT INTO Bike
 (bike_type, bike_model, bike_brand, bike_status,
  bike_price, bike_size, bike_model_year)
 VALUES
-('Road',     'Domane AL 2',   'Trek',        'in_shop',   1299.99, 'M', 2022),
-('Mountain', 'Talon 3',       'Giant',       'ready',       899.00, 'L', 2021),
-('Hybrid',   'Quick 4',       'Cannondale',  'in_shop',     679.50, 'S', 2023),
-('BMX',      'Legion L40',    'Mongoose',    'picked_up',   389.99, 'M', 2020),
-('Electric', 'Turbo Como 3',  'Specialized', 'ready',      2899.00, 'L', 2024),
-('Road',     'Via Nirone 7',  'Bianchi',     'in_shop',    1799.00, 'XL',2021),
-('Mountain', 'Scale 980',     'Scott',       'picked_up',   999.00, 'M', 2022),
-('Hybrid',   'Discover 2',    'Schwinn',     'in_shop',     549.00, 'S', 2019);
+('Road',     'Domane AL 2',   'Trek',        'in_shop',     1299.99, 'M', 2022),
+('Mountain', 'Talon 3',       'Giant',       'ready',        899.00, 'L', 2021),
+('Hybrid',   'Quick 4',       'Cannondale',  'in_shop',      679.50, 'S', 2023),
+('BMX',      'Legion L40',    'Mongoose',    'picked_up',    389.99, 'M', 2020),
+('Road',     'Allez',         'Specialized', 'out_of_stock', 1200.00, 'L', 2024),
+('Electric', 'Turbo Como 3',  'Specialized', 'ready',        2899.00, 'L', 2024),
+('Road',     'Via Nirone 7',  'Bianchi',     'in_shop',      1799.00, 'XL',2021),
+('Mountain', 'Scale 980',     'Scott',       'picked_up',    999.00, 'M', 2022),
+('Hybrid',   'Discover 2',    'Schwinn',     'in_shop',      549.00, 'S', 2019),
+('Hybrid',   'Escape 3',      'Giant',       'in_shop',      550.00, 'M', 2025);
 
 -- BikeRepairs
 INSERT INTO BikeRepairs
